@@ -19,11 +19,8 @@ module group '../shared/resource-group.bicep' = {
 }
 
 module automationAccount '../shared/automation-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'automation-account-${uniqueString(resourceGroupName, automationAccountName)}'
-  dependsOn: [
-    group
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'automation-account-${uniqueString(group.name, automationAccountName)}'
   params: {
     location: location
     automationAccountName: storageAccountName
@@ -32,11 +29,8 @@ module automationAccount '../shared/automation-account.bicep' = {
 }
 
 module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'ddos-protection-plan-${uniqueString(resourceGroupName, ddosPlanName)}'
-  dependsOn: [
-    group
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'ddos-protection-plan-${uniqueString(group.name, ddosPlanName)}'
   params: {
     location: location
     ddosPlanName: ddosPlanName
@@ -44,11 +38,8 @@ module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
 }
 
 module storageAccount '../shared/storage-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'storage-account-${uniqueString(resourceGroupName, storageAccountName)}'
-  dependsOn: [
-    group
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'storage-account-${uniqueString(group.name, storageAccountName)}'
   params: {
     location: location
     storageAccountName: storageAccountName
@@ -57,11 +48,8 @@ module storageAccount '../shared/storage-account.bicep' = {
 }
 
 module userAssignedIdentity '../shared/user-assigned-identity.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'user-assigned-identity-${uniqueString(resourceGroupName, userAssignedIdentityName)}'
-  dependsOn: [
-    group
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'user-assigned-identity-${uniqueString(group.name, userAssignedIdentityName)}'
   params: {
     location: location
     identityName: userAssignedIdentityName
@@ -69,10 +57,7 @@ module userAssignedIdentity '../shared/user-assigned-identity.bicep' = {
 }
 
 module userAssignedIdentityRoleAssignment '../shared/management-group-role-assignment.bicep' = {
-  name: 'management-group-role-assignment-${uniqueString(managementGroup().id, userAssignedIdentityName)}'
-  dependsOn: [
-    userAssignedIdentity
-  ]
+  name: 'management-group-role-assignment-${uniqueString(managementGroup().id, userAssignedIdentity.name)}'
   params: {
     principalId: userAssignedIdentity.outputs.principalId
     principalType: 'ServicePrincipal'
@@ -81,11 +66,8 @@ module userAssignedIdentityRoleAssignment '../shared/management-group-role-assig
 }
 
 module workspace '../shared/log-analytics-workspace.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'log-analytics-workspace-${uniqueString(resourceGroupName, workspaceName)}'
-  dependsOn: [
-    group
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'log-analytics-workspace-${uniqueString(group.name, workspaceName)}'
   params: {
     location: location
     workspaceName: workspaceName
@@ -107,14 +89,11 @@ var solutions = [
 ]
 
 module solution '../shared/log-analytics-workspace-solution.bicep' = [for solution in solutions: {
-  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'log-analytics-workspace-solution-${uniqueString(resourceGroupName, workspaceName, solution)}'
-  dependsOn: [
-    workspace
-  ]
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'log-analytics-workspace-solution-${uniqueString(group.name, workspace.name, solution)}'
   params: {
     location: location
-    logAnalyticsWorkspaceName: workspaceName
+    logAnalyticsWorkspaceName: workspace.name
     solutionName: solution
   }
 }]

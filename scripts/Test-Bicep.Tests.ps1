@@ -1,5 +1,5 @@
 BeforeAll {
-    Install-Module Bicep
+    Install-Module Bicep -Force
 }
 
 Describe "Test-Bicep" {

@@ -9,3 +9,4 @@ It currently consists of:
 - A Log Analytics Workspace with solutions
 - A Storage Account
 - A User Assigned Managed Identity (to be used for policy assignments/remediation)
+- A Azure KeyVault HSM (used to store private key for various encryption)

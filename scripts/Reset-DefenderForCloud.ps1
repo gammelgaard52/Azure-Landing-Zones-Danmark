@@ -32,7 +32,7 @@ If($prefix){
             #Filter Management Groups on Prefix
             If($mgmtGrp.Name -match $Prefix){
 
-                # query Azure Graph for subscriptions in the management group and add them to the arry of subscriptions
+                # query Azure Graph for subscriptions in the management group and add them to the array of subscriptions
                 $query = "ResourceContainers | where type =~ 'microsoft.resources/subscriptions' |  mv-expand managementGroupParent = properties.managementGroupAncestorsChain | where managementGroupParent.name =~ '$($mgmtGrp.Name)'"
                 $graphResult = Search-AzGraph -Query $Query -ManagementGroup $mgmtGrp.Name -First 200
                 if(($graphResult.count -gt 0) -and ( $graphResult.properties.state -eq 'enabled')){$subscriptions += $graphResult.subscriptionid}
@@ -62,7 +62,7 @@ Foreach($subscription in $subscriptions){
 
     # turn auto-provisioning off
     foreach($setting in Get-AzSecurityAutoProvisioningSetting){
-        write-output "Turning off autoprovisioning for: $($setting.name)"
+        write-output "Turning off auto provisioning for: $($setting.name)"
         Set-AzSecurityAutoProvisioningSetting -Name $setting.name
     }
 

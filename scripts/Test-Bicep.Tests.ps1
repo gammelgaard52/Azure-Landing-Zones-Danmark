@@ -1,3 +1,7 @@
+BeforeAll {
+    Install-Module Bicep
+}
+
 Describe "Test-Bicep" {
     $path = Resolve-Path "$PSScriptRoot/.."
 

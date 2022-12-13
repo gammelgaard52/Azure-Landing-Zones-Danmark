@@ -1,9 +1,4 @@
 Describe "Test-Bicep" {
-    BeforeAll {
-        Install-Module bicep -AllowClobber -Scope CurrentUser -Force
-        Import-Module bicep -Scope Global
-    }
-
     $path = Resolve-Path "$PSScriptRoot/.."
 
     $testCases = Get-ChildItem -Path $path -Include *.bicep -Recurse | ForEach-Object {
@@ -14,6 +9,6 @@ Describe "Test-Bicep" {
     }
 
     It "<Name> is valid bicep" -TestCases $testCases {
-        Test-Bicep -Path (Get-Content -Path $FullName) | Should -Be $true
+        Test-BicepFile -Path (Get-Content -Path $FullName) | Should -Be $true
     }
 }

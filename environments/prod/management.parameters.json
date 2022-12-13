@@ -22,6 +22,14 @@
         },
         "workspaceName": {
             "value": "ufstlz"
+        },
+        "initialAdminObjectIds": {
+            "value": [
+                "GEN-AZUREAD-OBJECTID"
+            ]
+        },
+        "managedHSMName": {
+            "value": "ufstlzcanary"
         }
     }
 }

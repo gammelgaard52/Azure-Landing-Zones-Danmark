@@ -8,6 +8,8 @@ param ddosPlanName string
 param storageAccountName string
 param userAssignedIdentityName string
 param workspaceName string
+param initialAdminObjectIds array
+param managedHSMName string
 
 module group '../shared/resource-group.bicep' = {
   scope: subscription(managementSubscriptionId)
@@ -97,3 +99,13 @@ module solution '../shared/log-analytics-workspace-solution.bicep' = [for soluti
     solutionName: solution
   }
 }]
+
+module managedKeyvaultHsm '../shared/managed-kv-hsm.bicep' = {
+  scope: resourceGroup(managementSubscriptionId,group.name)
+  name: 'managed-kv-hsm-${uniqueString(group.name, managedHSMName)}'
+  params: {
+    location: location
+    initialAdminObjectIds: initialAdminObjectIds
+    managedHSMName: managedHSMName
+  }
+}

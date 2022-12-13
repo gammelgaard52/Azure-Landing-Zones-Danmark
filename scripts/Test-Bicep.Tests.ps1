@@ -13,6 +13,6 @@ Describe "Test-Bicep" {
     }
 
     It "<Name> is valid bicep" -TestCases $testCases {
-        Test-BicepFile -Path (Get-Content -Path $FullName) | Should -Be $true
+        Test-BicepFile -Path $FullName | Should -Be $true
     }
 }

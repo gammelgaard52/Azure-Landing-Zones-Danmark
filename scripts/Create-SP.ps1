@@ -20,10 +20,12 @@ $sp = New-AzADServicePrincipal -DisplayName $spParm.name -Role Owner -Scope "/"
     Remove-AzRoleAssignment -ObjectId 7b6febdf-b361-4200-839f-a9b94b13953a -Scope "/" -RoleDefinitionName Owner
 #>
 
-$app = Get-AzADApplication -ApplicationId $sp.AppId
+#$app = Get-AzADApplication -ApplicationId $sp.AppId
+$sp.AppId
 
 # ga = github-actions
 # use -Description next time, to display a meaningful description of the integration
-New-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id -Audience api://AzureADTokenExchange -Issuer 'https://token.actions.githubusercontent.com/' -Name 'ga-sp-tenant-root-canary' -Subject 'repo:gammelgaard52/Azure-Landing-Zones-Danmark:environment:Canary'
-New-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id -Audience api://AzureADTokenExchange -Issuer 'https://token.actions.githubusercontent.com/' -Name 'ga-sp-tenant-root-production' -Subject 'repo:gammelgaard52/Azure-Landing-Zones-Danmark:environment:Production'
+New-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id -Audience api://AzureADTokenExchange -Issuer 'https://token.actions.githubusercontent.com' -Name 'ga-sp-tenant-root-canary' -Subject 'repo:gammelgaard52/Azure-Landing-Zones-Danmark:environment:Canary'
+New-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id -Audience api://AzureADTokenExchange -Issuer 'https://token.actions.githubusercontent.com' -Name 'ga-sp-tenant-root-production' -Subject 'repo:gammelgaard52/Azure-Landing-Zones-Danmark:environment:Production'
 Get-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id | Format-Table Name,Id,Issuer
+Get-AzADAppFederatedCredential -ApplicationObjectId (Get-AzADApplication -ApplicationId $sp.AppId).Id | Format-List

@@ -53,7 +53,7 @@ module storageAccount '../shared/storage-account.bicep' = {
   ]
   params: {
     location: location
-    storageAccountName: storageAccountName
+    storageAccountName: 'sa${uniqueString(resourceGroupName, storageAccountName)}'
     skuName: 'Standard_RAGRS'
   }
 }

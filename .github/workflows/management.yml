@@ -145,7 +145,6 @@ jobs:
     needs:
       - validate_canary
       - validate_prod
-      - deploy_canary
     if: success() && github.ref == 'refs/heads/main'
     env:
       ENVIRONMENT_SHORT_NAME: prod

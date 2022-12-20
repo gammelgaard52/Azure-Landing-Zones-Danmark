@@ -47,13 +47,13 @@ module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
 
 module storageAccount '../shared/storage-account.bicep' = {
   scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'storage-account-${uniqueString(resourceGroupName, storageAccountName)}'
+  name: 'storage-account-${uniqueString(managementSubscriptionId, resourceGroupName, storageAccountName)}'
   dependsOn: [
     group
   ]
   params: {
     location: location
-    storageAccountName: 'sa${uniqueString(resourceGroupName, storageAccountName)}'
+    storageAccountName: 'sa${uniqueString(managementSubscriptionId, resourceGroupName, storageAccountName)}'
     skuName: 'Standard_RAGRS'
   }
 }

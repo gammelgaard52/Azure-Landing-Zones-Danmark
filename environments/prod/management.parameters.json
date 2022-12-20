@@ -3,33 +3,34 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "managementSubscriptionId": {
-            "value": "0b3ff046-7854-4f2b-a83f-c45dfc89d22d"
+            "value": "116d3588-0604-42d7-b3c3-9f7b0b8f1416"
         },
         "resourceGroupName": {
-            "value": "Management"
+            "value": "rg-management"
         },
         "automationAccountName": {
-            "value": "ufstlz"
+            "value": "aa-management"
         },
         "ddosPlanName": {
-            "value": "ufstlz"
+            "value": "ddos-management"
         },
         "storageAccountName": {
-            "value": "ufstlz"
+            "value": "st-management"
         },
         "userAssignedIdentityName": {
-            "value": "ufstlz"
+            "value": "id-management"
         },
         "workspaceName": {
-            "value": "ufstlz"
+            "value": "log-management"
         },
         "initialAdminObjectIds": {
             "value": [
-                "GEN-AZUREAD-OBJECTID"
+                "8ee7dc56-b052-4661-91fb-25052a6b5d4b",
+                "2029bee9-d2d1-42f7-ae36-0d0460de09e6"
             ]
         },
         "managedHSMName": {
-            "value": "ufstlzcanary"
+            "value": "hsm-management"
         }
     }
 }

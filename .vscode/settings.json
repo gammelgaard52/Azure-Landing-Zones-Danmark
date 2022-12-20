@@ -71,6 +71,8 @@
         "westcentralus",
         "westeurope",
         "westindia",
-        "westus"
+        "westus",
+        "Keyvault",
+        "RAGRS"
     ]
 }

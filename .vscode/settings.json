@@ -73,6 +73,7 @@
         "westindia",
         "westus",
         "Keyvault",
-        "RAGRS"
+        "RAGRS",
+        "outfile"
     ]
 }

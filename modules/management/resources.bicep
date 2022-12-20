@@ -20,14 +20,12 @@ module group '../shared/resource-group.bicep' = {
   }
 }
 
-resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' existing = {
-  scope: subscription(managementSubscriptionId)
-  name: group.name
-}
-
 module automationAccount '../shared/automation-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'automation-account-${uniqueString(rg.name, automationAccountName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'automation-account-${uniqueString(resourceGroupName, automationAccountName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     automationAccountName: storageAccountName
@@ -36,8 +34,11 @@ module automationAccount '../shared/automation-account.bicep' = {
 }
 
 module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'ddos-protection-plan-${uniqueString(rg.name, ddosPlanName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'ddos-protection-plan-${uniqueString(resourceGroupName, ddosPlanName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     ddosPlanName: ddosPlanName
@@ -45,8 +46,11 @@ module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
 }
 
 module storageAccount '../shared/storage-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'storage-account-${uniqueString(rg.name, storageAccountName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'storage-account-${uniqueString(resourceGroupName, storageAccountName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     storageAccountName: storageAccountName
@@ -55,8 +59,11 @@ module storageAccount '../shared/storage-account.bicep' = {
 }
 
 module userAssignedIdentity '../shared/user-assigned-identity.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'user-assigned-identity-${uniqueString(rg.name, userAssignedIdentityName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'user-assigned-identity-${uniqueString(resourceGroupName, userAssignedIdentityName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     identityName: userAssignedIdentityName
@@ -64,7 +71,10 @@ module userAssignedIdentity '../shared/user-assigned-identity.bicep' = {
 }
 
 module userAssignedIdentityRoleAssignment '../shared/management-group-role-assignment.bicep' = {
-  name: 'management-group-role-assignment-${uniqueString(managementGroup().id, userAssignedIdentity.name)}'
+  name: 'management-group-role-assignment-${uniqueString(managementGroup().id, userAssignedIdentityName)}'
+  dependsOn: [
+    userAssignedIdentity
+  ]
   params: {
     principalId: userAssignedIdentity.outputs.principalId
     principalType: 'ServicePrincipal'
@@ -73,8 +83,11 @@ module userAssignedIdentityRoleAssignment '../shared/management-group-role-assig
 }
 
 module workspace '../shared/log-analytics-workspace.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'log-analytics-workspace-${uniqueString(rg.name, workspaceName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'log-analytics-workspace-${uniqueString(resourceGroupName, workspaceName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     workspaceName: workspaceName
@@ -96,18 +109,24 @@ var solutions = [
 ]
 
 module solution '../shared/log-analytics-workspace-solution.bicep' = [for solution in solutions: {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'log-analytics-workspace-solution-${uniqueString(rg.name, workspace.name, solution)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'log-analytics-workspace-solution-${uniqueString(resourceGroupName, workspaceName, solution)}'
+  dependsOn: [
+    workspace
+  ]
   params: {
     location: location
-    logAnalyticsWorkspaceName: workspace.name
+    logAnalyticsWorkspaceName: workspaceName
     solutionName: solution
   }
 }]
 
 module managedKeyvaultHsm '../shared/managed-kv-hsm.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.name)
-  name: 'managed-kv-hsm-${uniqueString(rg.name, managedHSMName)}'
+  scope: resourceGroup(managementSubscriptionId,resourceGroupName)
+  name: 'managed-kv-hsm-${uniqueString(resourceGroupName, managedHSMName)}'
+  dependsOn: [
+    group
+  ]
   params: {
     location: location
     initialAdminObjectIds: initialAdminObjectIds

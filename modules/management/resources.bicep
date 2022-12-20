@@ -130,6 +130,6 @@ module managedKeyvaultHsm '../shared/managed-kv-hsm.bicep' = {
   params: {
     location: location
     initialAdminObjectIds: initialAdminObjectIds
-    managedHSMName: managedHSMName
+    managedHSMName: 'hsm-${uniqueString(resourceGroupName, managedHSMName)}'
   }
 }

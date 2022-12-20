@@ -12,14 +12,14 @@ $spArray = @(
         description = "Service Principal for tenant root level"
     }#>
     @{ # SP for canary
-        name = "sp-canary-contributor"
-        role = "Contributor"
+        name = "sp-canary-owner"
+        role = "Owner"
         scope = "/providers/Microsoft.Management/managementGroups/lz-canary"
         description = "Service Principal for canary management group"
     }
     @{ # SP for prod
-        name = "sp-prod-contributor"
-        role = "Contributor"
+        name = "sp-prod-owner"
+        role = "Owner"
         scope = "/providers/Microsoft.Management/managementGroups/lz"
         description = "Service Principal for prod management group"
     }

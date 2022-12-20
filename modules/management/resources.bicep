@@ -26,8 +26,8 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' existing = {
 }
 
 module automationAccount '../shared/automation-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'automation-account-${uniqueString(rg.id, automationAccountName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'automation-account-${uniqueString(rg.name, automationAccountName)}'
   params: {
     location: location
     automationAccountName: storageAccountName
@@ -36,8 +36,8 @@ module automationAccount '../shared/automation-account.bicep' = {
 }
 
 module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'ddos-protection-plan-${uniqueString(rg.id, ddosPlanName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'ddos-protection-plan-${uniqueString(rg.name, ddosPlanName)}'
   params: {
     location: location
     ddosPlanName: ddosPlanName
@@ -45,8 +45,8 @@ module ddosProtectionPlan '../shared/ddos-protection-plan.bicep' = if (false) {
 }
 
 module storageAccount '../shared/storage-account.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'storage-account-${uniqueString(rg.id, storageAccountName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'storage-account-${uniqueString(rg.name, storageAccountName)}'
   params: {
     location: location
     storageAccountName: storageAccountName
@@ -55,8 +55,8 @@ module storageAccount '../shared/storage-account.bicep' = {
 }
 
 module userAssignedIdentity '../shared/user-assigned-identity.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'user-assigned-identity-${uniqueString(rg.id, userAssignedIdentityName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'user-assigned-identity-${uniqueString(rg.name, userAssignedIdentityName)}'
   params: {
     location: location
     identityName: userAssignedIdentityName
@@ -73,8 +73,8 @@ module userAssignedIdentityRoleAssignment '../shared/management-group-role-assig
 }
 
 module workspace '../shared/log-analytics-workspace.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'log-analytics-workspace-${uniqueString(rg.id, workspaceName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'log-analytics-workspace-${uniqueString(rg.name, workspaceName)}'
   params: {
     location: location
     workspaceName: workspaceName
@@ -96,8 +96,8 @@ var solutions = [
 ]
 
 module solution '../shared/log-analytics-workspace-solution.bicep' = [for solution in solutions: {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'log-analytics-workspace-solution-${uniqueString(rg.id, workspace.name, solution)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'log-analytics-workspace-solution-${uniqueString(rg.name, workspace.name, solution)}'
   params: {
     location: location
     logAnalyticsWorkspaceName: workspace.name
@@ -106,8 +106,8 @@ module solution '../shared/log-analytics-workspace-solution.bicep' = [for soluti
 }]
 
 module managedKeyvaultHsm '../shared/managed-kv-hsm.bicep' = {
-  scope: resourceGroup(managementSubscriptionId,rg.id)
-  name: 'managed-kv-hsm-${uniqueString(rg.id, managedHSMName)}'
+  scope: resourceGroup(managementSubscriptionId,rg.name)
+  name: 'managed-kv-hsm-${uniqueString(rg.name, managedHSMName)}'
   params: {
     location: location
     initialAdminObjectIds: initialAdminObjectIds

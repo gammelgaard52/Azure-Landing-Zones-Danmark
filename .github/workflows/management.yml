@@ -28,6 +28,9 @@ env:
   LOCATION: westeurope
 
 jobs:
+  lint_and_test_codebase:
+    uses: ./.github/workflows/linter.yml@main
+
   validate_canary:
     name: Validate Canary
     environment:

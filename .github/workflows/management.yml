@@ -17,11 +17,6 @@ on:  # yamllint disable-line rule:truthy
       - modules/management/**
       - environments/*/management*
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Lint and Test Code Base"]
-    branches: [main]
-    types:
-      - completed
 
 permissions:
   id-token: write

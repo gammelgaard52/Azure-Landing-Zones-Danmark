@@ -123,13 +123,13 @@ module solution '../shared/log-analytics-workspace-solution.bicep' = [for soluti
 
 module managedKeyvaultHsm '../shared/managed-kv-hsm.bicep' = {
   scope: resourceGroup(managementSubscriptionId,resourceGroupName)
-  name: 'managed-kv-hsm-${uniqueString(resourceGroupName, managedHSMName)}'
+  name: 'managed-kv-hsm-${uniqueString(managementSubscriptionId, resourceGroupName, managedHSMName)}'
   dependsOn: [
     group
   ]
   params: {
     location: location
     initialAdminObjectIds: initialAdminObjectIds
-    managedHSMName: 'hsm-${uniqueString(resourceGroupName, managedHSMName)}'
+    managedHSMName: 'hsm-${uniqueString(managementSubscriptionId, resourceGroupName, managedHSMName)}'
   }
 }

@@ -9,7 +9,7 @@ on:  # yamllint disable-line rule:truthy
   #  - cron: 0 0 * * sun #every sunday at 00.00
   workflow_dispatch:
 
-permissions:
+  permissions:
   id-token: write
   contents: read
 
@@ -29,12 +29,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install from PSGallery
       - uses: actions/checkout@v3
+      - name: Install dependencies from PSGallery
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module Az.ResourceGraph
+          Import-Module Az.ResourceGraph
 
       - name: Login
         uses: azure/login@v1
@@ -64,12 +65,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install from PSGallery
       - uses: actions/checkout@v3
+      - name: Install dependencies from PSGallery
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module Az.ResourceGraph
+          Import-Module Az.ResourceGraph
 
       - name: Login
         uses: azure/login@v1

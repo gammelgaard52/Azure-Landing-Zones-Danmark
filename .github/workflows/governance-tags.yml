@@ -35,7 +35,8 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Az.ResourceGraph
+          Install-Module AzResources,Az.ResourceGraph
+          Import-Module AzResources,Az.ResourceGraph
 
       - name: Login
         uses: azure/login@v1
@@ -71,7 +72,8 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Az.ResourceGraph
+          Install-Module AzResources,Az.ResourceGraph
+          Import-Module AzResources,Az.ResourceGraph
 
       - name: Login
         uses: azure/login@v1

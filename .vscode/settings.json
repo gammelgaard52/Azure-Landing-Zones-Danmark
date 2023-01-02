@@ -74,6 +74,10 @@
         "westus",
         "Keyvault",
         "RAGRS",
-        "outfile"
+        "outfile",
+        "Goverance",
+        "securityresources",
+        "governancerules",
+        "mailaddress"
     ]
 }

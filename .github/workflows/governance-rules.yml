@@ -49,7 +49,7 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            ${{ github.workspace }}/modules/${{ env.MODULE_NAME }}/scripts/Deploy-GovernanceRules.ps1 -Prefix ${{ env.PREFIX }}
+            ${{ github.workspace }}/modules/${{ env.MODULE_NAME }}/Deploy-GovernanceRules.ps1 -Prefix ${{ env.PREFIX }}
           azPSVersion: latest
 
   deploy_prod:
@@ -85,5 +85,5 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            ${{ github.workspace }}/modules/${{ env.MODULE_NAME }}/scripts/Deploy-GovernanceRules.ps1 -Prefix ${{ env.PREFIX }}
+            ${{ github.workspace }}/modules/${{ env.MODULE_NAME }}/Deploy-GovernanceRules.ps1 -Prefix ${{ env.PREFIX }}
           azPSVersion: latest

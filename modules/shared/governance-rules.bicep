@@ -11,10 +11,12 @@ param ownerSourceValue string
 param remediationTimeFrame string = '7.00:00:00' //default 7 days
 param rulePriority int
 param ruleType string = 'Integrated'
-param sourceResourceType string = 'Assessments' 
+param sourceResourceType string = 'Assessments'
+
+var governanceRuleName = uniqueString(displayName)
 
 resource governanceRules 'Microsoft.Security/governanceRules@2022-01-01-preview' = {
-  name: displayName
+  name: governanceRuleName
   properties: {
     conditionSets: [
       {

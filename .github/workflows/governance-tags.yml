@@ -17,17 +17,6 @@ env:
   MODULE_NAME: governance-tags
 
 jobs:
-  install-dependencies:
-    name: Install-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install from PSGallery
-        shell: pwsh
-        run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Az.ResourceGraph
-
   deploy_canary:
     name: Deploy Governance Tags Canary
     environment:
@@ -41,6 +30,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: actions/checkout@v3
+      - name: Install dependencies from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Az.ResourceGraph
+
       - name: Login
         uses: azure/login@v1
         with:
@@ -49,7 +45,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_MANAGEMENT_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
 
-      - name: deploy governance rules
+      - name: deploy governance tags
         uses: azure/powershell@v1
         with:
           inlineScript: |
@@ -70,6 +66,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: actions/checkout@v3
+      - name: Install dependencies from PSGallery
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Az.ResourceGraph
+
       - name: Login
         uses: azure/login@v1
         with:
@@ -78,7 +81,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_MANAGEMENT_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
 
-      - name: deploy governance rules
+      - name: deploy governance tags
         uses: azure/powershell@v1
         with:
           inlineScript: |

@@ -37,7 +37,6 @@ foreach($subscription in $subscriptions){
         write-output "no valid owner email address $owner found for subscription $subscription"
 
         $deploymentParameters = @{
-            displayName = "Governance tags for subscription : $subscription"
             tags = @{
                 owner = $TagOwner
             }

@@ -78,6 +78,7 @@
         "Goverance",
         "securityresources",
         "governancerules",
-        "mailaddress"
+        "mailaddress",
+        "TAGOWNER"
     ]
 }

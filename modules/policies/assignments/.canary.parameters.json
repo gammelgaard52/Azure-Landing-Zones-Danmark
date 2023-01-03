@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "logAnalytics": {
-      "value": "/subscriptions/bd0c76c9-58a6-4c33-bda2-5dc48915446e/resourceGroups/Management/providers/Microsoft.OperationalInsights/workspaces/ufstlzcanary"
+      "value": "/subscriptions/91be4fbe-f86c-494e-99cc-b22d311d8ae3/resourceGroups/rg-management/providers/Microsoft.OperationalInsights/workspaces/log-management"
     },
     "emailSecurityContact": {
-      "value": "management@azurelandingzones.com"
+      "value": "maras@netdesign.dk"
     },
     "exportResourceGroupName": {
-      "value": "AzurePlatform"
+      "value": "rg-management"
     },
     "ddosPlan": {
-      "value": "/subscriptions/bd0c76c9-58a6-4c33-bda2-5dc48915446e/resourceGroups/Management/providers/Microsoft.Network/ddosProtectionPlans/ufstlzcanary"
+      "value": "/subscriptions/91be4fbe-f86c-494e-99cc-b22d311d8ae3/resourceGroups/Management/providers/Microsoft.Network/ddosProtectionPlans/ddos-management"
     },
     "userAssignedIdentity": {
-      "value": "/subscriptions/bd0c76c9-58a6-4c33-bda2-5dc48915446e/resourceGroups/Management/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ufstlzcanary"
+      "value": "/subscriptions/91be4fbe-f86c-494e-99cc-b22d311d8ae3/resourceGroups/rg-management/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-management"
     }
   }
 }

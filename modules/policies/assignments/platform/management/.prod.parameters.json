@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "resourceGroupName": {
-      "value": "Management"
+      "value": "rg-management"
     },
     "workspaceName": {
-      "value": "ufstlz"
+      "value": "log-management"
     },
     "automationAccountName": {
-      "value": "ufstlz"
+      "value": "aa-management"
     },
     "dataRetention": {
       "value": 30
     },
     "userAssignedIdentity": {
-      "value": "/subscriptions/0b3ff046-7854-4f2b-a83f-c45dfc89d22d/resourceGroups/Management/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ufstlz"
+      "value": "/subscriptions/116d3588-0604-42d7-b3c3-9f7b0b8f1416/resourceGroups/rg-management/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-management"
     }
   }
 }

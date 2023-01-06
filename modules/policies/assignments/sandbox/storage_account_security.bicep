@@ -4,7 +4,7 @@ param location string = deployment().location
 param managementGroupId string
 param userAssignedIdentity string
 
-module Defender_For_Cloud './../../../shared/policy-assignment.bicep' = {
+module Storage_Account_Security './../../../shared/policy-assignment.bicep' = {
   name: 'Configure-Storage-Security-Assignment'
   scope: managementGroup(managementGroupId)
   params: {

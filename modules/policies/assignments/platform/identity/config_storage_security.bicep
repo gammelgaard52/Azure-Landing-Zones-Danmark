@@ -3,7 +3,7 @@ targetScope = 'managementGroup'
 param location string = deployment().location
 param managementGroupId string
 
-module Config_Storage_Security './../../../shared/policy-assignment.bicep' = {
+module Config_Storage_Security '../../../../shared/policy-assignment.bicep' = {
   name: 'Config-Storage-Security-Assignment'
   scope: managementGroup(managementGroupId)
   params: {

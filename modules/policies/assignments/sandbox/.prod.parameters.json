@@ -1,9 +1,0 @@
-{
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "userAssignedIdentity": {
-      "value": "/subscriptions/116d3588-0604-42d7-b3c3-9f7b0b8f1416/resourcegroups/rg-management/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-management"
-    }
-  }
-}

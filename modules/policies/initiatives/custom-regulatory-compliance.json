@@ -7,7 +7,6 @@
       "version": "0.0.1",
       "category": "Regulatory Compliance"
     },
-    "version": "0.0.1",
     "policyDefinitionGroups": [
       {
         "name": "ISO27001-2013_A.5.1.1",

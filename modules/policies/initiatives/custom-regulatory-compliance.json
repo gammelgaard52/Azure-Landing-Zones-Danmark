@@ -1,0 +1,51 @@
+{
+  "properties": {
+    "displayName": "Custom Regulatory Compliance",
+    "policyType": "Custom",
+    "description": "NetDesign - Custom Regulatory Compliance",
+    "metadata": {
+      "version": "0.0.1",
+      "category": "Regulatory Compliance"
+    },
+    "version": "0.0.1",
+    "policyDefinitionGroups": [
+      {
+        "name": "ISO27001-2013_A.5.1.1",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.5.1.1"
+      },
+      {
+        "name": "ISO27001-2013_C.4.3.c",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_C.4.3.c"
+      },
+      {
+        "name": "ISO27001-2013_A.18.1.4",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.18.1.4"
+      }
+    ],
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "4e400494-53a5-5147-6f4d-718b539c7394",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4e400494-53a5-5147-6f4d-718b539c7394",
+        "definitionVersion": "1.*.*",
+        "parameters": {},
+        "groupNames": [
+          "ISO27001-2013_A.5.1.1",
+          "ISO27001-2013_A.18.1.4"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "f8d141b7-4e21-62a6-6608-c79336e36bc9",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f8d141b7-4e21-62a6-6608-c79336e36bc9",
+        "definitionVersion": "1.*.*",
+        "parameters": {},
+        "groupNames": [
+          "ISO27001-2013_A.5.1.1",
+          "ISO27001-2013_C.4.3.c"
+        ]
+      }
+    ]
+  },
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "Custom-Regulatory-Compliance"
+}

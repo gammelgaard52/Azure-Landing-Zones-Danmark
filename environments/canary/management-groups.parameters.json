@@ -9,7 +9,7 @@
             "value": "lz-canary"
         },
         "enableConfidential": {
-            "value": false
+            "value": true
         },
         "managementSubscriptionId": {
             "value": "91be4fbe-f86c-494e-99cc-b22d311d8ae3"

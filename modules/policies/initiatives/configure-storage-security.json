@@ -5,7 +5,7 @@
     "description": "This policy initiative is a group of policies that configures security settings Storage.",
     "metadata": {
       "version": "1.0",
-      "category": "Security Center"
+      "category": "Regulatory Compliance"
     },
     "parameters": {},
     "policyDefinitions": [

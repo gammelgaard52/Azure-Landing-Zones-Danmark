@@ -26,7 +26,6 @@
       {
         "policyDefinitionReferenceId": "4e400494-53a5-5147-6f4d-718b539c7394",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4e400494-53a5-5147-6f4d-718b539c7394",
-        "definitionVersion": "1.*.*",
         "parameters": {},
         "groupNames": [
           "ISO27001-2013_A.5.1.1",
@@ -36,7 +35,6 @@
       {
         "policyDefinitionReferenceId": "f8d141b7-4e21-62a6-6608-c79336e36bc9",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f8d141b7-4e21-62a6-6608-c79336e36bc9",
-        "definitionVersion": "1.*.*",
         "parameters": {},
         "groupNames": [
           "ISO27001-2013_A.5.1.1",

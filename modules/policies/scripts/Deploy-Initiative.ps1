@@ -47,7 +47,7 @@ var initiatives = [
         @"
 ]
 
-resource initiativeResources 'Microsoft.Authorization/policySetDefinitions@2022-10-01' = [for initiative in initiatives: {
+resource initiativeResources 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = [for initiative in initiatives: {
   name: initiative.name
   properties: initiative.properties
 }]

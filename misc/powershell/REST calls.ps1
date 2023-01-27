@@ -1,14 +1,17 @@
 # Log in first with Connect-AzAccount if not using Cloud Shell
-
-Add-AzAccount -TenantId '97e7fa82-8ca6-4a93-a6c8-96ae01b69d29'
-$azContext = Get-AzContext
-$azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
-$profileClient = New-Object -TypeName Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient -ArgumentList ($azProfile)
-$token = $profileClient.AcquireAccessToken($azContext.Subscription.TenantId)
-$authHeader = @{
-    'Content-Type'='application/json'
-    'Authorization'='Bearer ' + $token.AccessToken
+Function Connect {
+    Add-AzAccount -TenantId '97e7fa82-8ca6-4a93-a6c8-96ae01b69d29'
+    $azContext = Get-AzContext
+    $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
+    $profileClient = New-Object -TypeName Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient -ArgumentList ($azProfile)
+    $token = $profileClient.AcquireAccessToken($azContext.Subscription.TenantId)
+    $authHeader = @{
+        'Content-Type'='application/json'
+        'Authorization'='Bearer ' + $token.AccessToken
+    }
 }
+
+Connect
 
 # Invoke the REST API
 $subscriptionId = '91be4fbe-f86c-494e-99cc-b22d311d8ae3'

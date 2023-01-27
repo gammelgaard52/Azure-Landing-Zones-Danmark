@@ -11,6 +11,7 @@ Function Connect {
         'Content-Type'='application/json'
         'Authorization'='Bearer ' + $token.AccessToken
     }
+    Write-Output $authHeader
 }
 
 Connect
@@ -52,7 +53,7 @@ $response.value | Format-List
 
 
 
-
+<#
 {
     "properties": {
       "description": "An example of a security automation that triggers one LogicApp resource (myTest1) on any security assessment",
@@ -90,3 +91,4 @@ $response.value | Format-List
     "location": "westeurope",
     "tags": {}
   }
+  #>

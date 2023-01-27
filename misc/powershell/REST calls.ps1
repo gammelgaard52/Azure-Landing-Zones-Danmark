@@ -9,6 +9,7 @@ Function Connect {
         'Content-Type'='application/json'
         'Authorization'='Bearer ' + $token.AccessToken
     }
+    Write-Output $authHeader
 }
 
 Connect

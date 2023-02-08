@@ -1,0 +1,15 @@
+version=1.0;
+
+authorizationrules {
+    => permit();
+};
+
+issuancerules
+{
+[type=="aikValidated", value==true]&&
+[type=="secureBootEnabled", value==true] &&
+[type=="bootDebuggingDisabled", value==true] &&
+[type=="vbsEnabled", value==true] &&
+[type=="notWinPE", value==true] &&
+[type=="notSafeMode", value==true] => issue(type="PlatformAttested", value=true);
+};

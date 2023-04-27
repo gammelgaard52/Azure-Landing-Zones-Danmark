@@ -1,0 +1,36 @@
+az login
+az account set --subscription sub-platform-intel
+az account show
+
+az --version
+
+$location = 'westeurope'
+$rgName = 'rg-kubernetes-sgx'
+$k8sName = 'aks-sgx-001'
+$k8sPoolName = 'poolsgx001'
+$rg = az group create --name $rgName --location $location
+$k8s = az aks create -g $rgName --name $k8sName --generate-ssh-keys --enable-addons confcom
+get-childitem c:\users\maras\.ssh\ | foreach-object {Copy-Item -Path $_.FullName -Destination 'C:\VSC\NetDesign\Project0\Azure-Landing-Zones-Danmark\misc\Intel SGX'}
+az aks nodepool add --cluster-name $k8sName --name $k8sPoolName --resource-group $rgName --node-vm-size Standard_DC4s_v3 --node-count 2
+az aks get-credentials --resource-group $rgName --name $k8sName
+
+winget install -e --id Kubernetes.kubectl
+kubectl version --client
+kubectl cluster-info
+kubectl completion powershell | Out-String | Invoke-Expression
+kubectl completion powershell >> $PROFILE
+kubectl --help
+
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl get pods
+
+az aks nodepool add --cluster-name $k8sName --name 'poolamd001' --resource-group $rgName --node-vm-size Standard_DC2as_v5 --node-count 2
+
+az aks list
+az aks addon update --addon confcom --name $k8sName --resource-group $rgName --enable-sgxquotehelper
+
+kubectl cordon aks-poolsgx001-95005121-vmss000001
+kubectl uncordon aks-poolsgx001-95005121-vmss000001
+
+kubectl apply -k https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/overlays/sgx?ref=v0.26.0

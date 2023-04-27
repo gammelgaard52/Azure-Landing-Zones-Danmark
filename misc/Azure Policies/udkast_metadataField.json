@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "metadataId": "Lov om behandling af personoplysninger",
+    "category": "Access Control",
+    "title": "Access Control Policy and Procedures",
+    "owner": "Shared",
+    "description": "Loven gælder for behandling af personoplysninger, som helt eller delvis foretages ved hjælp af elektronisk databehandling, og for ikke-elektronisk behandling af personoplysninger, der er eller vil blive indeholdt i et register.",
+    "requirements": "Paragraf 3§ styk 2) Behandling \na. Enhver operation eller række af operationer med eller uden brug af elektronisk databehandling, som oplysninger gøres til genstand for.",
+    "additionalContentUrl": "https://www.retsinformation.dk/eli/lta/2000/429"
+  },
+  "id": "/providers/Microsoft.PolicyInsights/policyMetadata/eli_lta_2000_429",
+  "name": "eli_lta_2000_429",
+  "type": "Microsoft.PolicyInsights/policyMetadata"
+}

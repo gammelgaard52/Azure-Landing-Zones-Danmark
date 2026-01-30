@@ -59,15 +59,64 @@ function Get-Parameter {
 
         [Parameter(Mandatory = $true)]
         [String]
-        $Environment
+        $Environment,
+
+        [Parameter(Mandatory = $true)]
+        [String]
+        $TemplatePath
     )
 
-    if (Test-Path -Path "$Path/.$Environment.parameters.json") {
-        Resolve-Path -Path "$Path/.$Environment.parameters.json"
+    $localParameters = "$Path/.$Environment.parameters.json"
+    if (Test-Path -Path $localParameters) {
+        return Resolve-Path -Path $localParameters
     }
-    else {
-        Resolve-Path -Path "$PSScriptRoot/template.parameters.json"
+
+    $repoRoot = Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "../../..")
+    $centralParameters = Join-Path -Path $repoRoot -ChildPath "environments/$Environment/policies.parameters.json"
+    if (Test-Path -Path $centralParameters) {
+        $templateParameters = Join-Path -Path (Get-Item -Path $Path) -ChildPath ".deploy.$Environment.parameters.json"
+        $parameterInfo = Get-Content -Path $TemplatePath | Select-String -Pattern "^\s*param\s+([A-Za-z0-9_]+)\b" | ForEach-Object {
+            [PSCustomObject]@{
+                Name       = $PSItem.Matches[0].Groups[1].Value
+                HasDefault = $PSItem.Line -match "="
+            }
+        }
+        $parameterNames = $parameterInfo | Select-Object -ExpandProperty Name -Unique
+        $requiredNames = $parameterInfo | Where-Object { -not $PSItem.HasDefault } | Select-Object -ExpandProperty Name -Unique
+        $central = Get-Content -Path $centralParameters -Raw | ConvertFrom-Json
+        $centralValues = $central.parameters
+        if (-not $centralValues) {
+            $centralValues = @{}
+        }
+
+        $missing = @()
+        foreach ($name in $requiredNames) {
+            if (-not ($centralValues.PSObject.Properties.Name -contains $name)) {
+                $missing += $name
+            }
+        }
+
+        if ($missing.Count -gt 0) {
+            throw "Missing parameters in '$centralParameters' for template '$TemplatePath': $($missing -join ', ')"
+        }
+
+        $filtered = [ordered]@{
+            '$schema'       = $central.'$schema'
+            contentVersion  = $central.contentVersion
+            parameters      = [ordered]@{}
+        }
+
+        foreach ($name in $parameterNames) {
+            if ($centralValues.PSObject.Properties.Name -contains $name) {
+                $filtered.parameters[$name] = $centralValues.$name
+            }
+        }
+
+        $filtered | ConvertTo-Json -Depth 20 | Set-Content -Path $templateParameters -WhatIf:$false
+        return $templateParameters
     }
+
+    return Resolve-Path -Path "$PSScriptRoot/template.parameters.json"
 }
 
 function Deploy-Template {
@@ -99,7 +148,7 @@ function Deploy-Template {
 
     $template = Join-Path -Path (Get-Item -Path $Path) -ChildPath ".deploy.bicep"
     Get-ChildItem -Path $Path/*.bicep -Exclude ".deploy.bicep" | Join-Template -Prefix $Prefix -ManagementGroupId $ManagementGroupId | Set-Content -Path $template -WhatIf:$false
-    $parameters = Get-Parameter -Path $Path -Environment $Environment
+    $parameters = Get-Parameter -Path $Path -Environment $Environment -TemplatePath $template
     New-AzManagementGroupDeployment -Name $DeploymentName -ManagementGroupId $ManagementGroupId -Location $Location -TemplateFile $template -TemplateParameterFile $parameters
 }
 

@@ -4,8 +4,6 @@ param location string = deployment().location
 param managementGroupId string
 param userAssignedIdentity string
 param emailSecurityContact string
-param logAnalytics string
-param exportResourceGroupName string
 
 module Defender_For_Cloud '../../shared/policy-assignment.bicep' = {
   name: 'Defender-For-Cloud-Assignment'
@@ -18,15 +16,6 @@ module Defender_For_Cloud '../../shared/policy-assignment.bicep' = {
     parameters: {
       emailSecurityContact: {
         value: emailSecurityContact
-      }
-      logAnalytics: {
-        value: logAnalytics
-      }
-      exportResourceGroupName: {
-        value: exportResourceGroupName
-      }
-      exportResourceGroupLocation: {
-        value: location
       }
     }
   }

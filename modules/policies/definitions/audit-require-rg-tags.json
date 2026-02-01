@@ -1,0 +1,32 @@
+{
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "audit-require-rg-tags",
+  "properties": {
+    "displayName": "Audit - Resource groups should have tags",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Audit when resource groups are created without any tags.",
+    "metadata": {
+      "category": "Tags",
+      "version": "1.0.0",
+      "createdBy": "managed-cloud-policies:automation"
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+          },
+          {
+            "field": "tags",
+            "exists": "false"
+          }
+        ]
+      },
+      "then": {
+        "effect": "audit"
+      }
+    }
+  }
+}

@@ -1,25 +1,18 @@
-# Azure-Landing-Zones-Danmark (Policy POC)
+# Azure-Landing-Zones-Danmark (Policy Definition POC)
 
-This branch is a minimal proof of concept for Azure Policy deployment.
+This branch is a minimal proof of concept for deploying Azure Policy definitions only, while keeping the original workflow and environment parameter structure.
 
 ## Scope of this POC
 
-The repository is intentionally reduced to show the core policy flow only:
+The repository is intentionally reduced to show a single flow:
 
-1. **Custom definition with parameters**
-   - `modules/policies/definitions/defender-configure-security-contacts.json`
-2. **Custom initiative that combines built-in + custom**
-   - `modules/policies/initiatives/configure-defender-for-cloud.json`
-3. **Assignment of that initiative**
-   - `modules/policies/assignments/defender_for_cloud.bicep`
-
-Environment-specific parameters are centralized in:
-- `environments/canary/policies.parameters.json`
+1. **Custom policy definition JSON**
+   - `modules/policies/definitions/audit-require-rg-tags.json`
 
 ## Deployment workflow
 
 The GitHub Actions workflow used by this branch is:
-- `.github/workflows/policies.yml` (canary only)
+- `.github/workflows/policies.yml`
 
 ## Local validation (optional)
 
@@ -33,10 +26,6 @@ Connect-AzAccount -Tenant $tenantId
 Set-AzContext -Tenant $tenantId -Subscription $subId
 
 .\modules\policies\scripts\Compare-PolicyDefinition.ps1 -Path .\modules\policies\definitions -ManagementGroupId $mgId
-.\modules\policies\scripts\Compare-Initiative.ps1 -Path .\modules\policies\initiatives -ManagementGroupId $mgId
-.\modules\policies\scripts\Compare-PolicyAssignment.ps1 -Path .\modules\policies\assignments -Prefix $mgId
 
 .\modules\policies\scripts\Deploy-PolicyDefinition.ps1 -Path .\modules\policies\definitions -Location $location -ManagementGroupId $mgId -Verbose -WhatIf
-.\modules\policies\scripts\Deploy-Initiative.ps1 -Path .\modules\policies\initiatives -Location $location -ManagementGroupId $mgId -Verbose -WhatIf
-.\modules\policies\scripts\Deploy-PolicyAssignment.ps1 -Path .\modules\policies\assignments -Location $location -Prefix $mgId -Environment canary -Verbose -WhatIf
 ```

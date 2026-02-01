@@ -1,26 +1,26 @@
 # Azure-Landing-Zones-Danmark (Policy Definition POC)
 
-This branch is a minimal proof of concept for deploying Azure Policy definitions only, while keeping the original workflow and environment parameter structure.
+Denne branch er et minimalt proof of concept for udrulning af Azure Policy-definitioner, samtidig med at den oprindelige workflow- og miljøparameterstruktur bevares.
 
-## Scope of this POC
+## Omfang af denne POC
 
-The repository is intentionally reduced to show a single flow:
+Repositoriet er bevidst reduceret for at vise et enkelt flow:
 
-1. **Custom policy definition JSON**
+1. **Brugerdefineret policy-definition i JSON**
    - `modules/policies/definitions/audit-require-rg-tags.json`
 
-## Deployment workflow
+## Udrulningsworkflow
 
-The GitHub Actions workflow used by this branch is:
+GitHub Actions-workflowet, der bruges af denne branch, er:
 - `.github/workflows/policies.yml`
 
-## Local validation (optional)
+## Lokal validering (valgfrit)
 
 ```powershell
-$mgId = "lz-canary"
-$subId = "91be4fbe-f86c-494e-99cc-b22d311d8ae3"
-$tenantId = "97e7fa82-8ca6-4a93-a6c8-96ae01b69d29"
-$location = "westeurope"
+$mgId = "<management-group-id>"
+$subId = "<subscription-id>"
+$tenantId = "<tenant-id>"
+$location = "<location>"
 
 Connect-AzAccount -Tenant $tenantId
 Set-AzContext -Tenant $tenantId -Subscription $subId
